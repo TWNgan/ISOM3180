@@ -25,7 +25,8 @@ HKUST **ISOM3180 Telecommunications and Computer Networking Management** midterm
 ## Repo 結構
 ```
 index.html, assets/      # 網站（GitHub Pages 直接由 main branch root 發佈）
+img/                     # 課堂 slides 截圖同 review questions 附圖
 notes/*.md               # Markdown 筆記原稿
 ```
 
-> 個人溫習用途，非官方教材。為尊重版權，公開版本冇放課堂 slides 圖片；考試題目附圖已改用自繪 SVG 重畫。
+> 個人溫習用途，非官方教材。課堂 slides 同題目版權屬原作者；溫習完會將 repo 轉做 private。

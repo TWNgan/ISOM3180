@@ -56,6 +56,7 @@
 >
 > 🧠 **由上而下（Layer 7→1）**：**A**ll **P**eople **S**eem **T**o **N**eed **D**ata **P**rocessing
 
+![OSI Reference Model (slide)](../img/slides/M2_osi.jpg)
 
 
 **OSI model 嘅好處（slide 6）：**
@@ -144,6 +145,7 @@
 - 傳送途中出錯，receiver 收到 **1111** → 自己計 1×1 + 1×2 + 1×3 + 1×4 = **10**。
 - **10 ≠ 7 → FCS 唔 match → receiver discard（丟棄）個 frame**。
 
+![教授手寫：encapsulation + FCS 例子 (M2 Supplementary)](../img/slides/M2_supp_fcs.jpg)
 
 - Receiver **唔會**要求重寄（唔會 initiate retransmission）；係 **sender 等唔到 ACK、timer expires 後自己 retransmit**（Review Q10 ⭐）。
 
@@ -168,6 +170,7 @@
 >
 > ⚠️ 教授 revision 時話 Q13 "not part of our study guide"，但都要識。
 
+![OSI vs TCP/IP (slide)](../img/slides/M2_osi_vs_tcpip.jpg)
 
 
 **TCP/IP Protocol Suite 分佈（slide 18）：**
@@ -178,6 +181,7 @@
 | **Internet** | **IP、NAT**；IP support：**ICMP**；Routing Protocols：**RIP、OSPF、EIGRP、BGP** |
 | **Network Access** | **ARP**（喺 Internet / Network Access 之間）、**PPP、Ethernet、Interface Drivers** |
 
+![TCP/IP Protocol Suite (slide)](../img/slides/M2_tcpip_suite.jpg)
 
 
 - **A networking model is only a representation of a network operation. The model is not the actual network.**
@@ -203,6 +207,7 @@
 
 > 🧠 **教授口訣**：**D**ozens **o**f **S**ausage **P**izza **F**ull **B**elly → **D**ata → **S**egment → **P**acket → **F**rame → **B**its（encapsulation 方向，由上而下）
 
+![Names for Data at Each Layer (slide)](../img/slides/M2_pdu_names.jpg)
 
 
 ### 4.2 Encapsulation 過程（Source / Sender，由 Layer 7 落去 Layer 1）
@@ -222,6 +227,7 @@ Data
 
 > ⚠️ 記住位置：**IP address 喺 network header**；**MAC address 喺 frame header**；**FCS 喺 frame trailer（唔係 header！）**（Review Q23）
 
+![Encapsulation (slide)](../img/slides/M2_encapsulation.jpg)
 
 
 ### 4.3 De-Encapsulation（解封裝）（Destination / Receiver，由 Layer 1 上去 Layer 7）
@@ -247,6 +253,7 @@ PC1–PC4 接喺同一條線（bus），各有 IP-n / MAC-n：
   - 解決方法：**Switch**（microsegmentation，Module 3）；**Hub 係 "bad news"**。
   - 🗣️ 訊號喺銅線傳播速度極快（板書「200 KMPH」比喻高速）。
 
+![教授手寫：shared media + data collision (M2 Supplementary)](../img/slides/M2_supp_bus_collision.jpg)
 
 
 ### 4.5 Data Flow Through a Network（Module 3 slide 34，配合理解）
@@ -257,6 +264,7 @@ Fred → SW1 → R1 → H1 → Barney：
 4. **H1 (Hub)**：**Layer 1 – receive, regenerate, and transmit data**（只係 L1）
 5. **Barney**："**De-encapsulate until data is given to the application!**"（1→7）
 
+![Data Flow Through a Network (slide)](../img/slides/M3_data_flow.jpg)
 
 
 ---

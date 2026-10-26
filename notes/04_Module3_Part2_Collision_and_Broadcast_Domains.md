@@ -18,6 +18,7 @@
 - **Hubs operate at Layer 1, simply repeating all received signals out all other ports.**
 - 例：Archie 同 Bob 同時經 Hub1 send → hub 將兩個訊號都 repeat 去 Larry → **Collision!**
 
+![Collisions with a hub (slide)](../img/slides/M3b_hub_collision.jpg)
 
 
 ### 1.2 Collision Domain 例子（slide 4）
@@ -28,11 +29,13 @@
 | **Collision Domain – Created by hub** | Hub 加所有接住佢嘅機 = 1 個 collision domain |
 | **Collision Domain – Extended by Repeater**（hub + repeater） | 經 repeater 接出去嘅機都係同一個 collision domain |
 
+![Collision domain examples (slide)](../img/slides/M3b_collision_domains.jpg)
 
 
 ### 1.3 Collision Domains with a Switch（slide 5）
 - Switch 接 Fred、Barney、Wilma、Betty → **每個 switch port = 1 個 collision domain → 共 4 個**。
 
+![Collision Domains with a Switch (slide)](../img/slides/M3b_switch_domains.jpg)
 
 
 ---
@@ -85,6 +88,7 @@
 | **Data Link (L2)** | **Break up collision domain** |
 | **Physical (L1)** | **One collision domain**（唔會分割） |
 
+![Collision Domain Segmentation by layer (slide)](../img/slides/M3b_segmentation_layers.jpg)
 
 
 - **Segment collision domains 嘅 devices：Switch、Bridge、Router**（L2 + L3）。
@@ -137,6 +141,7 @@
 
 **→ 15 collision domains；5 broadcast domains**（見第 7 節）
 
+![教授手寫：大圖逐個數 = 15 collision domains](../img/slides/M3_supp_15_domains.jpg)
 
 
 ---
@@ -150,11 +155,13 @@
 ### 6.1 Broadcasts in a Bridged Environment（slide 11）
 - **A broadcast is picked up by all stations. A broadcast is also forwarded across all bridges whether the receiving host is on the other side of the bridge or not. This eliminates the benefits of having a bridged network.**
 
+![Broadcasts in a Bridged Environment (slide)](../img/slides/M3b_bridged_broadcast.jpg)
 
 
 ### 6.2 Broadcast Domain Segmentation（slide 12）
 - **By using a router in place of a bridging device a layer two broadcast is contained. Layer three devices are the only devices that contain broadcasts.**
 
+![Broadcast Domain Segmentation (slide)](../img/slides/M3b_broadcast_segmentation.jpg)
 
 
 ---
@@ -190,6 +197,7 @@
 | **Switch** | **2** | **Yes** | **No** |
 | **Router** | **3** | **Yes** | **Yes** |
 
+![Collision Domains and Broadcast Domains comparison (slide)](../img/slides/M3b_comparison_table.jpg)
 
 
 ---
@@ -198,6 +206,7 @@
 
 ### Q2（答案：**7 collision domains**；broadcast = 3）
 
+![Review Q2 exhibit](../img/review/q02.jpg)
 
 圖：Router1 —— Switch1（Switch1 接 1 部 host + Hub1；Hub1 接 3 部 host）；Router1 —— Switch2 —— Router2 —— Bridge1 —— 一條 segment。
 1. Router1 ↔ Switch1
@@ -211,6 +220,7 @@
 
 ### Q4（答案：**3 broadcast domains**；collision = 7）
 
+![Review Q4 exhibit](../img/review/q04.jpg)
 
 圖：Miller router —— Bridge —— segment；Miller —— Switch —— Kaiser router —— Switch —— (host + Hub with 3 hosts)。
 - Broadcast：① Miller ↔ Bridge 邊 ② Miller ↔ Switch ↔ Kaiser（同一個）③ Kaiser ↔ 右邊 Switch / Hub → **3**
@@ -220,12 +230,14 @@
 
 ### Q8（Broadcast 去咗邊）
 
+![Review Q8 exhibit](../img/review/q08.jpg)
 
 Router（接 Internet）—— Switch —— A、B、Hub（C、D、E）。A 送 broadcast → switch flood（B、router、hub）→ hub flood（C、D、E）→ **router 唔會 forward 去 Internet** → **B, C, D, E 同 router 收到**。
 - 呢幅圖：collision domains = 5（Router–Internet、Router–Switch、Switch–A、Switch–B、Switch–Hub+C/D/E）；broadcast domains = 2。
 
 ### Q16（Switch 已 built CAM table）
 
+![Review Q16 exhibit](../img/review/q16.jpg)
 
 Switch（A、B、C）—— Router E0；Router E1 —— Hub（D、E、F）。A → C unicast → **只有 C** 收到。
 - 呢幅圖：collision domains = 5（A、B、C、Switch–E0、E1–Hub+D/E/F）；broadcast domains = 2。

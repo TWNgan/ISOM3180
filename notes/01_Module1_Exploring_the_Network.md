@@ -60,6 +60,7 @@
 - 分成 **4 組，每組 8 bits = 1 個 octet**，每個 octet 轉成 decimal，中間用 **dot** 分隔 → **dotted-decimal format**。
 - 例：11001000.01110010.00000110.00110011 = **200.114.6.51**。
 
+![Four-octet dotted-decimal (slide)](../img/slides/M1_dotted_decimal.jpg)
 
 - 每個 octet 範圍 **0 – 255**（全 0 = 0；全 1 = 255）。
 - **IPv6 = 128 bits**，用 **hexadecimal** 表示（唔係 decimal）。
@@ -74,6 +75,7 @@
 2. **Media**（傳輸媒介）
 3. **Services**（服務 / 軟件、processes）
 
+![Components of a Network (slide)](../img/slides/M1_components.jpg)
 
 
 ### 2.1 Host Roles：Server vs Client
@@ -110,6 +112,7 @@
   2. **Maintain information about what pathways exist in the network**（記錄網絡有咩路徑）
   3. **Notify other devices of errors and communication failures**（通知其他裝置錯誤同通訊失敗）
 
+![Intermediary Network Devices (slide)](../img/slides/M1_intermediary.jpg)
 
 
 ### 2.5 Network Media（媒介）
@@ -141,6 +144,7 @@
 - 🗣️ Lab 入面 router 背後 port 有名：**F**（FastEthernet）、**S**（Serial）等等。
 - 三類符號：**End Devices**、**Intermediary Devices**、**Network Media**（Wireless media = 波浪線；LAN media = 直線；**WAN media = 閃電 Z 字線**）。
 
+![Network Representations (slide)](../img/slides/M1_representations.jpg)
 
 
 ### 2.7 Topology Diagrams
@@ -151,6 +155,7 @@
 
 - 🗣️ 教授：Physical = **how things are physically connected**；Logical = **how data moves**（要用 IP / network address）。
 
+![Physical vs Logical topology diagrams (slide)](../img/slides/M1_topology_diagrams.jpg)
 
 
 ---
@@ -252,6 +257,7 @@ Network infrastructures 嘅分別在於：**size of the area covered、number of
 - ⚠️ **Circuit-switched networks** 建立 **dedicated circuits**，所以**做唔到**上述效果。
 - 圖：**Redundant connections allow for alternative paths if a device or a link fails. The user experience is unaffected.**
 
+![Fault Tolerance (slide)](../img/slides/M1_fault_tolerance.jpg)
 
 - 🗣️ 教授：preferred path 斷咗，就經 alternate route 送 data —— 靠 **routing**（routing protocols 例如 **RIP、EIGRP、OSPF**，3180 唔教 config，ISOM 3380 先教）。
 
@@ -342,12 +348,14 @@ Network infrastructures 嘅分別在於：**size of the area covered、number of
   - **Network devices are like pumps, valves, fittings, and taps**
   - **Packets are like water**
 
+![Bandwidth Pipe Analogy (slide)](../img/slides/M1_bw_pipe.jpg)
 
 - **Bandwidth Highway Analogy（公路比喻）**：
   - **Bandwidth is like the number of lanes**（行車線數目）
   - **Network devices are like on-ramps, traffic signals, signs, and maps**
   - **Packets are like vehicles**
 
+![Bandwidth Highway Analogy (slide)](../img/slides/M1_bw_highway.jpg)
 
 - 🗣️ **Throughput**：實際得到嘅速度；多人 share 同一條線時 throughput 會跌。
 

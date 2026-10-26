@@ -19,6 +19,8 @@
 
 ## Q2. How many collision domains are shown in the diagram?
 
+![Q2 exhibit](../img/review/q02.jpg)
+
 - **A.** three
 - **B.** four
 - **C.** five
@@ -33,6 +35,8 @@
 ---
 
 ## Q3. Refer to the exhibit. The physical documentation shows a portion of the internetwork of the ABC Company. Which segments will be free of collisions?
+
+![Q3 exhibit](../img/review/q03.jpg)
 
 - **A.** segments 1 and 2
 - **B.** segments 1, 2, and 3
@@ -49,6 +53,8 @@
 
 ## Q4. Refer to the exhibit. How many broadcast domains are shown?
 
+![Q4 exhibit](../img/review/q04.jpg)
+
 - ✅ **A.** **three**
 - **B.** four
 - **C.** five
@@ -64,6 +70,8 @@
 
 ## Q5. Refer to the exhibit. A network associate needs to establish an Ethernet connection between Host A and Host B. However, the distance between the two hosts is further than the cabling standards allow. Which two devices that operate at the physical layer of the OSI can be used to allow Host A and Host B to communicate? (Choose two.)
 
+![Q5 exhibit](../img/review/q05.jpg)
+
 - **A.** switch
 - ✅ **B.** **hub**
 - **C.** bridge
@@ -77,6 +85,8 @@
 ---
 
 ## Q6. Refer to the exhibit. What is the order of the TCP/IP Protocol Data Units as data is moved as indicated through the OSI model?
+
+![Q6 exhibit](../img/review/q06.jpg)
 
 - **A.** bits, segments, frames, packets, data
 - ✅ **B.** **bits, frames, packets, segments, data**
@@ -103,6 +113,8 @@
 ---
 
 ## Q8. Refer to the exhibit. The hub and the switch are operating using factory default settings. Which hosts will receive the frame if host A transmits a broadcast frame?
+
+![Q8 exhibit](../img/review/q08.jpg)
 
 - **A.** Only workstation B and the router will receive the data.
 - ✅ **B.** **Workstations B, C, D, E, and the router will receive the data.**
@@ -143,6 +155,8 @@
 
 ## Q11. Based on the graphic above, which of the following occurs as each host system comes on line in the topology?
 
+![Q11 exhibit](../img/review/q11.jpg)
+
 - **A.** The switch sends its MAC address to each host.
 - ✅ **B.** **The switch adds MAC address to the MAC table as each host sends a frame.**
 - **C.** Each host exchanges MAC addresses with each other.
@@ -155,6 +169,8 @@
 ---
 
 ## Q12. Refer to the exhibit. Identify the devices labeled A, B, C, and D in the network physical documentation.
+
+![Q12 exhibit](../img/review/q12.jpg)
 
 - **A.** A=bridge, B=switch, C=router, D=hub
 - ✅ **B.** **A=bridge, B=hub, C=router, D=switch**
@@ -212,6 +228,8 @@
 ---
 
 ## Q16. Refer to the exhibit. The switch and the hub have default configurations, and the switch has built its CAM table. Which of the hosts will receive the data when workstation A sends a unicast packet to workstation C?
+
+![Q16 exhibit](../img/review/q16.jpg)
 
 - ✅ **A.** **workstation C**
 - **B.** workstations B and C

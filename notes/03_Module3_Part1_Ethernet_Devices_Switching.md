@@ -40,6 +40,7 @@
 
 - 🗣️ Star + restricted access 例子（M3 Supplementary）：Percy (PC1)、Students (PC2)、Exam server、Email server 全部經中間 router —— 可以喺 router 設 **ACL (Access Control List)**，令學生 **midterm 前唔可以入 exam server**，但可以入 email server（ACL 細節喺 ISOM 3380 教）。
 
+![教授手寫：Bus、Ring、Star + ACL (M3 Supplementary)](../img/slides/M3_supp_topologies.jpg)
 
 
 ---
@@ -55,6 +56,7 @@
 | **彎曲 / 凹形（好似 U 形 / 滑板）** | **Bridge** | 「呢個 funny device 係 bridge」 |
 | **雲** | **Network Cloud** | 「雲入面可以係**任何嘢**：PC、server、router、repeater……」 |
 
+![Networking Devices icons (slide) —— 必背！](../img/slides/M3_device_icons.jpg)
 
 
 > 🎯 **Review Q12**：A = 彎形 → **bridge**；B = 盒 + 1 箭 + ports → **hub**；C = 圓形 → **router**；D = 盒 + 4 箭 → **switch**。
@@ -78,6 +80,7 @@
 - **Sent a regenerated clean signal out the other port.**
 - **Repeaters: Layer 1**（只處理 1s and 0s）
 
+![Repeated Ethernet Signal (slide)](../img/slides/M3_repeated_signal.jpg)
 
 
 > 🗣️ **Repeater 只做一件事：regenerate signals。No decision making（唔做任何決定）。**
@@ -94,6 +97,7 @@
 
 **Hub Operation（slide 10）：** Fred 由 **port 0** 送訊號入 hub → hub："**I'm receiving a signal on port 0 – send it out the other ports!**" → 複製去 port 1、2、3（**唔會送返 port 0**）。
 
+![Hub Operation (slide)](../img/slides/M3_hub_operation.jpg)
 
 
 > 🗣️ **Flooding** = **send out every port except the incoming port**（送去所有 port，除咗入嚟嗰個）。Hub 永遠 flood，**冇 table、冇 decision**。
@@ -185,6 +189,7 @@ Switch：E0 接 F 同 L（同一條 shared segment），E1 接 Q 同 V。開始�
 
 - ⚠️ 如果 table 係**空**，F → L（同一 port）：switch 學到 F@E0，但 L 唔喺 table → **仍然 flood**（雖然 L 已經收到）。🗣️「Destination 唔喺 table，switch 就**盲目 flood**。」
 
+![教授手寫：MAC address table 例子 (M3 Supplementary)](../img/slides/M3_supp_mac_table.jpg)
 
 
 ### 7.6 Timestamp 有咩用？（Aging）
@@ -195,16 +200,20 @@ Switch：E0 接 F 同 L（同一條 shared segment），E1 接 Q 同 V。開始�
 ### 7.7 Slide 例子（Fred / Barney / Wilma / Betty）
 - **Flooding Unknown Unicasts（slide 15）**：CAM 開始 **Empty** → Fred (0200.1111.1111) 送 frame 俾 Barney (0200.2222.2222)，由 port 1 入 → switch："**Source MAC is 0200.1111.1111 – it came in port 1 – add it to switching table!**" → CAM After：0200.1111.1111 → port 1；Barney 唔喺 table → **flood**。
 
+![Flooding Unknown Unicasts (slide)](../img/slides/M3_flooding_unknown.jpg)
 
 - **Two Switches（slide 17）**：之前 Wilma (3333) 已經講過嘢，所以 SW1 CAM 有 3333@port 4、SW2 有 3333@port 1。Fred (1111) → Wilma：SW1 學 **1111@port 1**、forward 去 port 4；SW2 學 **1111@port 3**、forward 去 port 1 → Wilma。
   - 🗣️ **教授 IQ 題**：點樣嘅通訊令 SW1 有 3333@4、SW2 有 3333@1？→ **Sender 一定係 3333**（table 只記 source）；receiver 可以係 **1111 或 2222**，甚至係 **4444**（table 空時 SW2 唔識 4444 → flood 埋去 SW1，所以 SW1 都學到 3333）。
 
+![Learning CAM Table Entries: Two Switches (slide)](../img/slides/M3_cam_two_switches.jpg)
 
 - **Filter Decision（slide 18）**：Fred → Barney（兩部都喺左邊 hub）。Hub "regenerate and repeat!" → Barney 收到 "process it!"；switch：「**0200.2222.2222 is reachable via port 0. The frame came in port 0. Filter!!**」
 
+![Switch Making Filter Decision (slide)](../img/slides/M3_filter.jpg)
 
 - **Forwarding Decision（slide 19）**：Fred → Wilma。Switch：「**0200.3333.3333 is reachable via port 1. The frame came in port 0. Forward!!**」→ 右邊 hub regenerate → Wilma "is me! Process the frame!"；Betty "sent to someone else – ignore it!"；Barney 亦 ignore。
 
+![Switch Making a Forwarding Decision (slide)](../img/slides/M3_forward.jpg)
 
 
 > 🎯 **Review Q11**：Host 開機上線時？→ **"The switch adds MAC address to the MAC table as each host sends a frame."**（switch **唔會**主動送自己 MAC；hosts 唔會互相交換 MAC）
@@ -227,6 +236,7 @@ Switch：E0 接 F 同 L（同一條 shared segment），E1 接 Q 同 V。開始�
 
 **Shared segment（before）：All traffic visible on network segment** vs **LAN switch（after）：Multiple traffic paths within switch → Dedicated paths between sender and receiver hosts.**
 
+![Dedicated paths (slide)](../img/slides/M3_dedicated_paths.jpg)
 
 
 🗣️ **Switch 三大技術（必背）：**
@@ -243,12 +253,14 @@ Switch：E0 接 F 同 L（同一條 shared segment），E1 接 Q 同 V。開始�
 - **The switch then forwards the frames one at a time.**
 - 🗣️ Slide 22 例子：Wilma、Barney、Betty 同時送俾 Fred → 一次只放一個出 port，其他喺 **frame buffers** 等。輪流方式：**round robin**；亦可以設定俾 **time-sensitive data（audio/video streaming）priority**（QoS）。
 
+![Switch Buffering Example (slide)](../img/slides/M3_buffering.jpg)
 
 
 - 🗣️ **Table 空（要 flood）都唔會 collision**：因為每個 port 都有 memory buffer，一次只放一份出去。
 - 🗣️ **Microsegmentation 條件**：**one port, one end device**，或者 **one port 接另一部 switch / router**。如果 switch port 接 **hub** → 嗰個 hub 範圍就有 collision（**hub 係 culprit**）。
 - **Full duplex cannot be used if a hub is plugged into the port.**（呢點喺 Part II）
 
+![教授手寫：bus / hub / switch collision 情境 + full duplex + router (M3 Supplementary)](../img/slides/M3_supp_collisions.jpg)
 
 
 ---
@@ -269,6 +281,7 @@ Switch：E0 接 F 同 L（同一條 shared segment），E1 接 Q 同 V。開始�
   - 所以 routing table 唔齊就**無法通訊** → 要用 **routing protocols** 幫 router **盡快建立 routing table**（例：**RIP、IGRP/EIGRP、OSPF**；細網用 RIP，大網用 OSPF/EIGRP）。
   - 🗣️ 相鄰 routers 好似「師奶 gossip」：互相交換自己 routing table 嘅資訊，一個傳一個。
 
+![教授手寫：router interfaces E/S、routing table、routing protocols (M3 Supplementary)](../img/slides/M3_supp_router.jpg)
 
 - **Router 唔 forward broadcast**（filter broadcasts）→ **router 分隔 broadcast domains**（Part II）。
 
@@ -288,6 +301,7 @@ Switch：E0 接 F 同 L（同一條 shared segment），E1 接 Q 同 V。開始�
 | **OUI (Organizationally Unique Identifier)** | **24 bits（first 3 bytes）** | **6 hex digits** | **00-60-2F** | **Vendor code**（例：Cisco） |
 | **Vendor Assigned (NIC, Interfaces)** | **24 bits（last 3 bytes）** | **6 hex digits** | **3A-07-BC** | **Particular device**（每張 NIC 唔同） |
 
+![MAC Address structure (slide)](../img/slides/M3_mac_structure.jpg)
 
 
 - **寫法（三種都係同一個 MAC）**：**00-05-9A-3C-78-00**、**00:05:9A:3C:78:00**、**0005.9A3C.7800**（Cisco 格式）。
@@ -322,12 +336,14 @@ Switch：E0 接 F 同 L（同一條 shared segment），E1 接 Q 同 V。開始�
 
 Slide 30 例子：Source host IP **192.168.1.5**、MAC **00-07-E9-63-CE-53** → Dest MAC **FF-FF-FF-FF-FF-FF**、Dest IP **192.168.1.255**（IP packet 包喺 Ethernet frame 入面）。
 
+![Broadcast MAC Address (slide)](../img/slides/M3_broadcast_mac.jpg)
 
 
 ### 11.2 Multicast Address
 - **Multicast MAC address is a special value that begins with 01-00-5E in hexadecimal.**（例：01-00-5E-00-00-C8）
 - **Range of IPv4 multicast addresses is 224.0.0.0 to 239.255.255.255.**（例：224.0.0.200）
 
+![Multicast MAC Address (slide)](../img/slides/M3_multicast_mac.jpg)
 
 
 ### 11.3 Switch 處理 Broadcast ⭐
