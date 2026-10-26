@@ -288,7 +288,7 @@
           ${!a && multi ? `<button class="btn primary" id="submitQ" ${Q.selected.length ? '' : 'disabled'}>提交答案</button>` : ''}
           ${a ? `<button class="btn primary" id="nextQ">${Q.i === n - 1 ? '睇結果 🏁' : '下一題 →'}</button>` : ''}
         </div>
-        <div class="kbd" style="margin-top:8px">快捷鍵：A–F 或 1–6 揀答案 · Enter 提交 / 下一題 · ← → 前後</div>
+        <div class="kbd desk-only" style="margin-top:8px">快捷鍵：A–F 或 1–6 揀答案 · Enter 提交 / 下一題 · ← → 前後</div>
       </div></div>`;
     $$('.opt', main).forEach((b) => { b.onclick = () => chooseOption(parseInt(b.dataset.i, 10)); });
     if ($('#prevQ')) $('#prevQ').onclick = () => { if (Q.i > 0) { Q.i--; Q.selected = []; renderQuestion(); } };
@@ -544,23 +544,30 @@
     if (FC.order) list = FC.order.map((i) => list.find((c) => c.idx === i)).filter(Boolean).concat(list.filter((c) => !FC.order.includes(c.idx)));
     return list;
   }
+  function cardFace(c, n) {
+    const tag = `<div class="tag">${TOPIC[c.t]} · ${FC.i + 1} / ${n}</div>`;
+    if (!FC.flipped) {
+      return `<div class="flash-face front">${tag}<div class="term">${esc(c.f)}</div>
+        <div class="hint"><span class="mobile-only">撳卡睇答案 · 左右掃轉卡</span><span class="desk-only">撳卡 / 空白鍵睇答案 · ← → 轉卡</span></div></div>`;
+    }
+    return `<div class="flash-face back">${tag}<div class="term">${esc(c.f)}</div><div class="answer">${c.b}</div></div>`;
+  }
+
   function flashcards() {
     const list = fcList(); const known = store.get('flashKnown', []);
     if (FC.i >= list.length) FC.i = 0;
     const c = list[FC.i];
     main.innerHTML = `<div class="trainer" style="max-width:820px">
-      <h1 style="margin:0">🃏 Flashcards（English keyword ↔ 中文解釋）</h1>
+      <h1 style="margin:0">🃏 Flashcards</h1>
+      <p class="kbd" style="margin:0">English keyword ↔ 中文解釋 · 已識 ${known.length} / ${D.flash.length}</p>
       <div class="toolbar">
         <select id="fcTopic">${[['all', '全部'], ['M1', 'Module 1'], ['M2', 'Module 2'], ['M3a', 'Module 3-I'], ['M3b', 'Module 3-II']].map(([v, t]) => `<option value="${v}" ${FC.topic === v ? 'selected' : ''}>${t}</option>`).join('')}</select>
         <label><input type="checkbox" id="fcUnknown" ${FC.onlyUnknown ? 'checked' : ''}> 只顯示未識</label>
         <button class="btn" id="fcShuffle">🔀 洗牌</button>
-        <span class="kbd">已識 ${known.length} / ${D.flash.length}</span>
       </div>
-      ${c ? `<div class="flash ${FC.flipped ? 'flipped' : ''}" id="fcCard"><div class="flash-inner">
-          <div class="flash-face front"><span class="tag">${TOPIC[c.t]} · ${FC.i + 1} / ${list.length}</span>${esc(c.f)}<div class="kbd" style="margin-top:14px;font-weight:400">撳卡 / 空白鍵 翻轉</div></div>
-          <div class="flash-face back"><span class="tag">${esc(c.f)}</span><div>${c.b}</div></div></div></div>
+      ${c ? `<div class="flash" id="fcCard" role="button" tabindex="0" aria-label="翻轉卡片">${cardFace(c, list.length)}</div>
         <div class="qnav"><button class="btn" id="fcPrev">← 上一張</button>
-          <button class="btn ${known.includes(c.idx) ? 'good' : ''}" id="fcKnown">${known.includes(c.idx) ? '✅ 已識' : '我識 ✓（K）'}</button>
+          <button class="btn ${known.includes(c.idx) ? 'good' : ''}" id="fcKnown">${known.includes(c.idx) ? '✅ 已識' : '我識 ✓'}<span class="desk-only">（K）</span></button>
           <button class="btn primary" id="fcNext">下一張 →</button></div>`
     : '<div class="card">🎉 呢個分類全部已識！取消「只顯示未識」再溫一次。</div>'}
     </div>`;
@@ -568,7 +575,16 @@
     $('#fcUnknown').onchange = (e) => { FC.onlyUnknown = e.target.checked; FC.i = 0; FC.flipped = false; flashcards(); };
     $('#fcShuffle').onclick = () => { FC.order = shuffle(D.flash.map((_, i) => i)); FC.i = 0; FC.flipped = false; flashcards(); };
     if (!c) return;
-    $('#fcCard').onclick = () => { FC.flipped = !FC.flipped; $('#fcCard').classList.toggle('flipped', FC.flipped); };
+    const card = $('#fcCard');
+    card.onclick = () => { FC.flipped = !FC.flipped; card.innerHTML = cardFace(c, list.length); };
+    // phone: swipe left / right to change card (vertical scrolling still works)
+    let sx = null; let sy = null;
+    card.addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+    card.addEventListener('touchend', (e) => {
+      if (sx == null) return;
+      const dx = e.changedTouches[0].clientX - sx; const dy = e.changedTouches[0].clientY - sy; sx = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) { e.preventDefault(); (dx < 0 ? $('#fcNext') : $('#fcPrev')).click(); }
+    });
     $('#fcPrev').onclick = () => { FC.i = (FC.i - 1 + list.length) % list.length; FC.flipped = false; flashcards(); };
     $('#fcNext').onclick = () => { FC.i = (FC.i + 1) % list.length; FC.flipped = false; flashcards(); };
     $('#fcKnown').onclick = () => {

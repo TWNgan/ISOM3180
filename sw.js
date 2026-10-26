@@ -1,6 +1,6 @@
 /* Network-first service worker: always fresh when online, still works offline (e.g. on the MTR),
    and keeps serving the saved copy if the site itself goes away (404 after the repo turns private). */
-const CACHE = 'isom3180-mvpgvc8t';
+const CACHE = 'isom3180-mvpiciev';
 const ASSETS = [
  "./",
  "index.html",
