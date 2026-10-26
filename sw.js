@@ -1,5 +1,6 @@
-/* Network-first service worker: always fresh when online, still works offline (e.g. on the MTR). */
-const CACHE = 'isom3180-mvpgriev';
+/* Network-first service worker: always fresh when online, still works offline (e.g. on the MTR),
+   and keeps serving the saved copy if the site itself goes away (404 after the repo turns private). */
+const CACHE = 'isom3180-mvpgvc8t';
 const ASSETS = [
  "./",
  "index.html",
@@ -74,20 +75,23 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(caches.keys()
-    .then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
-    .then(() => self.clients.claim()));
+  // only drop old caches once the new one is complete, so an offline copy always exists
+  event.waitUntil(caches.open(CACHE).then((cache) => cache.keys()).then((have) => (have.length >= ASSETS.length
+    ? caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== CACHE).map((k) => caches.delete(k))))
+    : null)).then(() => self.clients.claim()));
 });
 
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  const fromCache = () => caches.match(event.request).then((hit) => hit || caches.match('index.html'));
   event.respondWith(
     fetch(event.request)
       .then((response) => {
+        if (!response.ok) return fromCache().then((hit) => hit || response); // never replace good copies with error pages
         const copy = response.clone();
         caches.open(CACHE).then((cache) => cache.put(event.request, copy));
         return response;
       })
-      .catch(() => caches.match(event.request).then((hit) => hit || caches.match('index.html'))),
+      .catch(fromCache),
   );
 });
