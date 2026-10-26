@@ -22,7 +22,7 @@
   // original exhibit photo when available (local build); otherwise our own SVG re-drawing
   const exhibitHtml = (q) => (q.img
     ? `<div class="qimg"><img src="${q.img}" alt="exhibit" class="zoomable"></div>`
-    : (q.diagram ? `<div class="diagram qdiagram">${G.exhibit(q.diagram)}</div>` : ''));
+    : (q.diagram ? `<div class="diagram qdiagram">${G.exhibit(q.diagram)}</div><p class="swipe-hint">↔ 圖太闊可以左右滑動</p>` : ''));
 
   // ---------------------------------------------------------------- sidebar
   const NAV = [
@@ -158,7 +158,10 @@
       </article>
       <aside class="toc"><b>本頁目錄</b>${tocLinks}</aside>
     </div>`;
-    $$('.exhibit[data-diagram]', main).forEach((el) => { el.innerHTML = G.exhibit(el.dataset.diagram); });
+    $$('.exhibit[data-diagram]', main).forEach((el) => {
+      el.innerHTML = G.exhibit(el.dataset.diagram);
+      el.insertAdjacentHTML('afterend', '<p class="swipe-hint">↔ 圖太闊可以左右滑動</p>');
+    });
     $('#studyBtn').onclick = () => {
       const s = store.get('studied', []);
       store.set('studied', s.includes(id) ? s.filter((x) => x !== id) : s.concat(id));

@@ -144,7 +144,7 @@ a.card:hover { border-color: var(--accent); text-decoration: none; transform: tr
 .toolbar input[type=number] { width: 80px; }
 .diagram { background: #fff; border: 1px solid var(--border); border-radius: 14px; padding: 8px; overflow-x: auto; }
 html.dark .diagram { background: #f8fafc; }
-svg.topo { width: 100%; min-width: 560px; height: auto; display: block; }
+svg.topo { width: 100%; min-width: 520px; height: auto; display: block; }
 svg.topo .node-label { font: 600 13px var(--font); fill: #1e293b; }
 svg.topo .port-label { font: 700 12px var(--font); fill: #b45309; }
 svg.topo .badge { font: 800 12px var(--font); fill: #fff; }
